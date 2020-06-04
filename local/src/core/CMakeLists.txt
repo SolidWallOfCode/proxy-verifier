@@ -12,7 +12,7 @@ add_library(verifier-core STATIC
 )
 
 target_include_directories(verifier-core PUBLIC)
-target_link_libraries(verifier-core PUBLIC PkgConfig::libswoc++ PkgConfig::yaml-cpp)
+target_link_libraries(verifier-core PUBLIC PkgConfig::libswoc PkgConfig::yaml-cpp)
 
 install(TARGETS verifier-core ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(TARGETS verifier-core
