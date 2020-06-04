@@ -2318,22 +2318,6 @@ HttpHeader::localize(TextView text, Encoding enc)
   return self_type::localize(text);
 }
 
-bool
-icompare_pred(unsigned char a, unsigned char b)
-{
-  return std::tolower(a) == std::tolower(b);
-}
-
-bool
-icompare(swoc::TextView const &a, swoc::TextView const &b)
-{
-  if (a.length() == b.length()) {
-    return std::equal(b.begin(), b.end(), a.begin(), icompare_pred);
-  } else {
-    return false;
-  }
-}
-
 swoc::Rv<HttpHeader::ParseResult>
 HttpHeader::parse_request(swoc::TextView data)
 {
@@ -2369,7 +2353,7 @@ HttpHeader::parse_request(swoc::TextView data)
         value.trim_if(&isspace);
         if (name) {
           _fields_rules->_fields.emplace(name, value);
-          if (icompare(name, "expect") && icompare(value, "100-continue")) {
+          if (strcasecmp(name, "expect") && strcasecmp(value, "100-continue")) {
             _send_continue = true;
           }
         } else {
