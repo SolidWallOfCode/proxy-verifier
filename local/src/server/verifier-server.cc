@@ -15,6 +15,7 @@
 #include <mutex>
 #include <thread>
 #include <unordered_map>
+#include <fstream>
 
 #include <dirent.h>
 #include <fcntl.h>
@@ -738,6 +739,15 @@ Engine::command_run()
       }
     }
   } // End of scope for errata so it gets logged.
+
+  // SWOC
+  auto base_path = std::getenv("AUTEST_RUN_DIR");
+  if (base_path) {
+    swoc::file::path log_path{base_path};
+    log_path /= "server-status.log";
+    std::ofstream(log_path.c_str()) << "ready" << std::endl;
+  }
+  // SWOC
 
   // Wait for the listening threads to start up.
   while (!Shutdown_Flag) {

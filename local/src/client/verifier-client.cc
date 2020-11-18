@@ -465,8 +465,8 @@ Engine::command_run()
       return;
     }
   } else {
-    TLSSession::certificate_file = ROOT_PATH / "client.pem";
-    TLSSession::privatekey_file = ROOT_PATH / "client.key";
+    TLSSession::certificate_file = ROOT_PATH / "test/keys/newcerts/client-cert.pem";
+    TLSSession::privatekey_file = ROOT_PATH / "test/keys/newcerts/client-key.pem";
   }
 
   auto ca_certs_arg{arguments.get("ca-certs")};
